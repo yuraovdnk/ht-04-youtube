@@ -2,11 +2,10 @@ import {MongoClient} from "mongodb";
 import {bloggerType, CommentType, postsType, UserType} from "./types";
 
 
-let mongoUri = process.env.MongoURI || "mongodb://localhost:27017"
-console.log(mongoUri)
-if(!mongoUri){
-    mongoUri = 'mongodb+srv://yuraovdnk:sZ6ZJHPQBQIBzdU3@cluster0.sbzbx.mongodb.net/?retryWrites=true&w=majority'
-}
+let mongoUri = process.env.MongoURI || "mongodb://localhost:27017" ||  'mongodb+srv://yuraovdnk:sZ6ZJHPQBQIBzdU3@cluster0.sbzbx.mongodb.net/?retryWrites=true&w=majority'
+// if(!mongoUri){
+//     mongoUri = 'mongodb+srv://yuraovdnk:sZ6ZJHPQBQIBzdU3@cluster0.sbzbx.mongodb.net/?retryWrites=true&w=majority'
+// }
 
 const client = new MongoClient(mongoUri)
 const db = client.db('youtube')
