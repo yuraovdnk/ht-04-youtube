@@ -1,8 +1,8 @@
 import {MongoClient} from "mongodb";
 import {bloggerType, CommentType, postsType, UserType} from "./types";
 
-
-let mongoUri = process.env.MongoURI || "mongodb://localhost:27017" ||  'mongodb+srv://yuraovdnk:Cxo44f0Ifmg3l77X@cluster0.sbzbx.mongodb.net/?retryWrites=true&w=majority'
+// const t = || "mongodb://localhost:27017"
+let mongoUri = process.env.MongoURI  || 'mongodb+srv://yuraovdnk:Cxo44f0Ifmg3l77X@cluster0.sbzbx.mongodb.net/?retryWrites=true&w=majority'
 // if(!mongoUri){
 //     mongoUri = 'mongodb+srv://yuraovdnk:sZ6ZJHPQBQIBzdU3@cluster0.sbzbx.mongodb.net/?retryWrites=true&w=majority'
 // }
