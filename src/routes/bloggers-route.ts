@@ -52,7 +52,6 @@ bloggersRoute.delete('/:id', basicAuth,idValidator, async (req: Request, res: Re
     const isDeleted = await bloggersService.deleteBlogger(new ObjectId(req.params.id))
     if (isDeleted) {
         return res.status(204)
-
     }
     res.status(404)
 })

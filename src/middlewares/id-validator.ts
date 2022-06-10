@@ -6,6 +6,6 @@ export const idValidator = (req: Request, res: Response, next: NextFunction) => 
             next()
             return;
         }
-        res.send(404)
+        res.status(404)
     })
 }
