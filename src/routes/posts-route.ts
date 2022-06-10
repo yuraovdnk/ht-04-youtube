@@ -37,8 +37,7 @@ postsRoute.post('/',basicAuth,postsValidate, async (req: Request, res: Response)
                     "message": "Invalid 'bloggerId': such blogger doesn't exist",
                     "field": "bloggerId"
                 }
-            ],
-            "resultCode": 1
+            ]
         })
         return
     }
@@ -70,8 +69,7 @@ postsRoute.put('/:id',basicAuth, idValidator, postsValidate,async (req: Request,
                     "message": "Invalid 'bloggerId': such blogger doesn't exist",
                     "field": "bloggerId"
                 }
-            ],
-            "resultCode": 1
+            ]
         })
         return
     }

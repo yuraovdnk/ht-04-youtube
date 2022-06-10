@@ -17,7 +17,7 @@ commentsRoute.get('/:id',idValidator,async (req: Request, res: Response) => {
 
 })
 
-commentsRoute.put('/:id',commentValidation, bearerAuth,idValidator, async (req: Request, res: Response) => {
+commentsRoute.put('/:id',bearerAuth,idValidator,commentValidation, async (req: Request, res: Response) => {
     const comment = await commentsService.getCommentById(new ObjectId(req.params.id))
 
     if (!comment) {
