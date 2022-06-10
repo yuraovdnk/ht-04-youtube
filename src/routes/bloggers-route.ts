@@ -4,10 +4,10 @@ import {paginateType} from "../repositories/pagination";
 import {bloggersRepository} from "../repositories/bloggers-repository";
 import {postsService} from "../domain/posts-service";
 import {basicAuth} from "../middlewares/basic-auth";
-import {postsValidate} from "../middlewares/posts-validator";
-import {bloggersValidate} from "../middlewares/bloggers-validator";
+import {postsValidate} from "../middlewares/validators/posts-validator";
+import {bloggersValidate} from "../middlewares/validators/bloggers-validator";
 import {ObjectId} from "mongodb";
-import {idValidator} from "../middlewares/id-validator";
+import {idValidator} from "../middlewares/validators/id-validator";
 
 export const bloggersRoute = Router()
 

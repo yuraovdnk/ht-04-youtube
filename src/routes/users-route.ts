@@ -3,8 +3,8 @@ import {usersService} from "../domain/users-service";
 import {basicAuth} from "../middlewares/basic-auth";
 import {paginateType} from "../repositories/pagination";
 import {ObjectId} from "mongodb";
-import {usersValidate} from "../middlewares/users-validator";
-import {idValidator} from "../middlewares/id-validator";
+import {usersValidate} from "../middlewares/validators/users-validator";
+import {idValidator} from "../middlewares/validators/id-validator";
 
 
 export const usersRoute = Router()

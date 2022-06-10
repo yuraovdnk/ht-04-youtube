@@ -2,7 +2,7 @@ import {MongoClient} from "mongodb";
 import {bloggerType, CommentType, postsType, UserType} from "./types";
 import {settings} from "../settings";
 
-// const t = || "mongodb://localhost:27017"
+// const t = ||
 
 const client = new MongoClient(settings.mongoUri)
 const db = client.db('youtube')

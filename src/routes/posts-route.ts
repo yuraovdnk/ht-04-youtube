@@ -4,10 +4,11 @@ import {paginateType} from "../repositories/pagination";
 import {bloggersRepository} from "../repositories/bloggers-repository";
 import {bloggersService} from "../domain/bloggers-service";
 import {basicAuth} from "../middlewares/basic-auth";
-import {postsValidate} from "../middlewares/posts-validator";
+import {postsValidate} from "../middlewares/validators/posts-validator";
 import {bearerAuth} from "../middlewares/bearer-auth";
 import {ObjectId} from "mongodb";
-import {idValidator} from "../middlewares/id-validator";
+import {idValidator} from "../middlewares/validators/id-validator";
+import {commentValidation} from "../middlewares/validators/comment-validators";
 
 
 export const postsRoute = Router()
@@ -95,7 +96,7 @@ postsRoute.delete('/:id',basicAuth,idValidator,async (req: Request, res: Respons
 
 })
 ///comments
-postsRoute.post('/:postId/comments',bearerAuth,idValidator,async (req: Request, res: Response)=>{
+postsRoute.post('/:postId/comments',bearerAuth,idValidator,commentValidation,async (req: Request, res: Response)=>{
     const existPost = await postsService.getPostById(new ObjectId(req.params.postId))
     if(existPost){
         const createPost = await postsService.createComment(new ObjectId(req.params.postId),req.body.content, req.user!)

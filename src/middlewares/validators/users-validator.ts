@@ -8,7 +8,7 @@ export const loginValidator = body('login')
     .notEmpty().withMessage("Login must be not empty")
     .isLength({min:3,max:10}).withMessage(`The field Login must be a string of \'30\'.`)
 
-export const passwordValidator = body('login')
+export const passwordValidator = body('password')
     .exists().withMessage('The password field is required.')
     .isString().withMessage('The password field must be string')
     .notEmpty().withMessage("password must be not empty")

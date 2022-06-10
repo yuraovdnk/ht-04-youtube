@@ -23,6 +23,7 @@ const contentValidation = body('content')
     .notEmpty().withMessage("Content must be not empty")
     .isLength({max:30}).withMessage(`The field Content must be a string or array type with a maximum length of \'100\'.`)
 
+
 export const postsValidate = [
     titleValidation,
     shortDescriptionValidation,
