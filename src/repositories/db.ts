@@ -18,6 +18,7 @@ export async function runDb() {
 
     } catch (e) {
         console.log("Not connected to db", e)
+        console.log(settings.mongoUri)
         await client.close()
     }
 }
