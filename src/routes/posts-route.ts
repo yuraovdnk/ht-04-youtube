@@ -13,7 +13,8 @@ import {idValidator} from "../middlewares/id-validator";
 export const postsRoute = Router()
 
 postsRoute.get('/', async (req:  Request, res: Response) => {
-    res.send(await postsService.getPosts(req.query as paginateType))
+    const bloggers = await postsService.getPosts(req.query as paginateType)
+    res.send(bloggers)
 })
 
 postsRoute.get('/:id',idValidator, async (req: Request, res: Response) => {
@@ -44,7 +45,7 @@ postsRoute.post('/',basicAuth,postsValidate, async (req: Request, res: Response)
     const post = await postsService.createPost(req.body, blogger)
 
     if (!post) {
-        res.status(400).send()
+        res.status(400)
         return
     }
 
@@ -55,7 +56,7 @@ postsRoute.put('/:id',basicAuth, idValidator, postsValidate,async (req: Request,
     const isExistPost = await postsService.getPostById(new ObjectId(req.params.id))
 
     if (!isExistPost) {
-        res.send(404)
+        res.status(404)
         return
     }
 
@@ -77,20 +78,20 @@ postsRoute.put('/:id',basicAuth, idValidator, postsValidate,async (req: Request,
     const isUpdated = await postsService.updatePost(req.body, new ObjectId(req.params.id))
 
     if (!isUpdated) {
-        res.send(400)
+        res.status(400)
         return
     }
 
-    res.send(204)
+    res.status(204)
 })
 
 postsRoute.delete('/:id',basicAuth,idValidator,async (req: Request, res: Response)=>{
     const isDeleted = await postsService.deletePost(new ObjectId(req.params.id))
     if(isDeleted){
-        res.send(204)
+        res.status(204)
         return
     }
-    res.send(404)
+    res.status(404)
 
 })
 ///comments
@@ -102,7 +103,7 @@ postsRoute.post('/:postId/comments',bearerAuth,idValidator,async (req: Request, 
             return res.status(201).send(createPost)
         }
     }
-    res.send(404)
+    res.status(404)
 })
 
 postsRoute.get('/:postId/comments',idValidator,async (req: Request, res: Response)=>{
@@ -111,5 +112,5 @@ postsRoute.get('/:postId/comments',idValidator,async (req: Request, res: Respons
         const allComments = await postsService.getCommentByPostId(new ObjectId(req.params.postId),req.query as paginateType)
         return res.status(200).send(allComments)
     }
-    res.send(404)
+    res.status(404)
 })

@@ -12,7 +12,7 @@ commentsRoute.get('/:id',idValidator,async (req: Request, res: Response) => {
     if (comment) {
         return res.status(200).send(comment)
     }
-    res.send(404)
+    res.status(404)
 
 })
 
@@ -20,28 +20,28 @@ commentsRoute.put('/:id', bearerAuth,idValidator, async (req: Request, res: Resp
     const comment = await commentsService.getCommentById(new ObjectId(req.params.id))
 
     if (!comment) {
-        return res.send(404)
+        return res.status(404)
     }
 
     if (comment.userId.toString() !== req.user!.id.toString()) {
-        return res.send(403)
+        return res.status(403)
     }
     const isUpdated = await commentsService.updateComment(new ObjectId(req.params.id), req.body.content);
     if (isUpdated) {
-        return res.send(200)
+        return res.status(200)
     }
 })
 
 commentsRoute.delete('/:id', bearerAuth,idValidator, async (req: Request, res: Response) => {
     const comment = await commentsService.getCommentById(new ObjectId(req.params.id))
     if (!comment) {
-        return res.send(404)
+        return res.status(404)
     }
     if (comment.userId !== req.user!.id) {
-        return res.send(403)
+        return res.status(403)
     }
     const isDeleted = await commentsService.deleteComment(new ObjectId(req.params.id))
     if (isDeleted) {
-        return res.send(204)
+        return res.status(204)
     }
 })

@@ -24,7 +24,7 @@ export const usersRepository = {
     async findById(id: ObjectId):Promise<UserType | null>{
         return await usersCollection.findOne({id})
     },
-    async deleteUser(id:ObjectId):Promise<boolean>{
+    async deleteUser(id: ObjectId):Promise<boolean>{
         const res = await usersCollection.deleteOne({id})
         return res.acknowledged
     }

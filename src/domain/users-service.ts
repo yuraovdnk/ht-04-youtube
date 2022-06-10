@@ -10,7 +10,7 @@ export const usersService = {
     async createUser(login: string, password: string):Promise<UserTypeRes | false> {
         const candidate = await usersRepository.findByLogin(login)
         if(candidate){
-            return false // уже такой пользователь есть
+            return false
         }
         const passwordSalt = await bcrypt.genSalt(10)
         const passwordHash = await this.generateHash(password,passwordSalt)
