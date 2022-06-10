@@ -45,7 +45,7 @@ postsRoute.post('/',basicAuth,postsValidate, async (req: Request, res: Response)
     const post = await postsService.createPost(req.body, blogger)
 
     if (!post) {
-        res.status(400)
+        res.send(400)
         return
     }
 
@@ -56,7 +56,7 @@ postsRoute.put('/:id',basicAuth, idValidator, postsValidate,async (req: Request,
     const isExistPost = await postsService.getPostById(new ObjectId(req.params.id))
 
     if (!isExistPost) {
-        res.status(404)
+        res.send(404)
         return
     }
 
@@ -78,20 +78,20 @@ postsRoute.put('/:id',basicAuth, idValidator, postsValidate,async (req: Request,
     const isUpdated = await postsService.updatePost(req.body, new ObjectId(req.params.id))
 
     if (!isUpdated) {
-        res.status(400)
+        res.send(400)
         return
     }
 
-    res.status(204)
+    res.send(204)
 })
 
 postsRoute.delete('/:id',basicAuth,idValidator,async (req: Request, res: Response)=>{
     const isDeleted = await postsService.deletePost(new ObjectId(req.params.id))
     if(isDeleted){
-        res.status(204)
+        res.send(204)
         return
     }
-    res.status(404)
+    res.send(404)
 
 })
 ///comments
@@ -103,7 +103,7 @@ postsRoute.post('/:postId/comments',bearerAuth,idValidator,async (req: Request, 
             return res.status(201).send(createPost)
         }
     }
-    res.status(404)
+    res.send(404)
 })
 
 postsRoute.get('/:postId/comments',idValidator,async (req: Request, res: Response)=>{
@@ -112,5 +112,5 @@ postsRoute.get('/:postId/comments',idValidator,async (req: Request, res: Respons
         const allComments = await postsService.getCommentByPostId(new ObjectId(req.params.postId),req.query as paginateType)
         return res.status(200).send(allComments)
     }
-    res.status(404)
+    res.send(404)
 })

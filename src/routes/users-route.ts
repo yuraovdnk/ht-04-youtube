@@ -17,7 +17,7 @@ usersRoute.post('/', basicAuth,usersValidate, async (req: Request, res: Response
         res.status(201).send(newUser)
         return
     }
-    res.status(400)
+    res.send(400)
 })
 
 usersRoute.get('/', async (req: Request, res: Response) => {
@@ -28,9 +28,9 @@ usersRoute.get('/', async (req: Request, res: Response) => {
 usersRoute.delete('/:id',basicAuth,idValidator,async (req: Request, res: Response)=>{
    const isDeleted = await usersService.deleteUser(new ObjectId(req.params.id))
     if(isDeleted){
-        return res.status(200)
+        return res.send(200)
     }
-    res.status(404)
+    res.send(404)
 })
 
 

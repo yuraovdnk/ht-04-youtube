@@ -12,5 +12,5 @@ authRoute.post('/login',async (req: Request, res: Response)=>{
         res.status(200).send({token})
         return
     }
-    res.status(401)
+    res.send(401)
 })
