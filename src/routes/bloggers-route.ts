@@ -6,6 +6,8 @@ import {postsService} from "../domain/posts-service";
 import {basicAuth} from "../middlewares/basic-auth";
 import {postsValidate} from "../middlewares/posts-validator";
 import {bloggersValidate} from "../middlewares/bloggers-validator";
+import {ObjectId} from "mongodb";
+import {idValidator} from "../middlewares/id-validator";
 
 export const bloggersRoute = Router()
 
@@ -14,8 +16,8 @@ bloggersRoute.get('/', async (req: Request, res: Response) => {
     res.status(200).send(bloggers)
 })
 
-bloggersRoute.get('/:id', async (req: Request, res: Response) => {
-    const blogger = await bloggersService.getBloggerById(+req.params.id)
+bloggersRoute.get('/:id',idValidator, async (req: Request, res: Response) => {
+    const blogger = await bloggersService.getBloggerById(new ObjectId(req.params.id))
     if (blogger) {
         res.status(200).send(blogger)
         return
@@ -32,10 +34,10 @@ bloggersRoute.post('/', basicAuth, bloggersValidate, async (req: Request, res: R
     res.send(404)
 })
 
-bloggersRoute.put('/:id', basicAuth, bloggersValidate, async (req: Request, res: Response) => {
-    const foundBlogger = await bloggersRepository.getBloggerById(+req.params.id)
+bloggersRoute.put('/:id', basicAuth,idValidator, bloggersValidate, async (req: Request, res: Response) => {
+    const foundBlogger = await bloggersRepository.getBloggerById(new ObjectId(req.params.id))
     if (foundBlogger) {
-        const isUpdated = await bloggersService.updateBlogger(+req.params.id, req.body)
+        const isUpdated = await bloggersService.updateBlogger(new ObjectId(req.params.id), req.body)
         if (isUpdated) {
             res.send(204)
             return
@@ -46,8 +48,8 @@ bloggersRoute.put('/:id', basicAuth, bloggersValidate, async (req: Request, res:
     res.send(404)
 })
 
-bloggersRoute.delete('/:id', basicAuth, async (req: Request, res: Response) => {
-    const isDeleted = await bloggersService.deleteBlogger(+req.params.id)
+bloggersRoute.delete('/:id', basicAuth,idValidator, async (req: Request, res: Response) => {
+    const isDeleted = await bloggersService.deleteBlogger(new ObjectId(req.params.id))
     if (isDeleted) {
         res.send(204)
         return
@@ -56,18 +58,18 @@ bloggersRoute.delete('/:id', basicAuth, async (req: Request, res: Response) => {
 })
 
 
-bloggersRoute.get('/:bloggerId/posts', async (req: Request, res: Response) => {
-    const bloggerExist = await bloggersService.getBloggerById(+req.params.bloggerId)
+bloggersRoute.get('/:bloggerId/posts',idValidator, async (req: Request, res: Response) => {
+    const bloggerExist = await bloggersService.getBloggerById(new ObjectId(req.params.bloggerId))
     if (bloggerExist) {
-        const post = await postsService.getPostByBloggerId(+req.params.bloggerId, req.query as paginateType)
+        const post = await postsService.getPostByBloggerId(new ObjectId(req.params.bloggerId), req.query as paginateType)
         res.status(200).send(post)
         return
     }
     res.send(404)
 })
 
-bloggersRoute.post('/:bloggerId/posts', basicAuth, postsValidate, async (req: Request, res: Response) => {
-    const blogger = await bloggersService.getBloggerById(+req.params.bloggerId)
+bloggersRoute.post('/:bloggerId/posts', basicAuth,idValidator, postsValidate, async (req: Request, res: Response) => {
+    const blogger = await bloggersService.getBloggerById(new ObjectId(req.params.bloggerId))
     if (blogger) {
         const createdPost = await postsService.createPost(req.body, blogger)
         res.status(201).send(createdPost)

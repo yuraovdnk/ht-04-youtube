@@ -8,13 +8,13 @@ export const postsService = {
         return await postsRepository.getPosts(query)
     },
 
-    async getPostById(id: number): Promise<postsType | null> {
+    async getPostById(id: ObjectId): Promise<postsType | null> {
         return await postsRepository.getPostById(id)
     },
 
     async createPost(body: postsType, blogger: bloggerType): Promise<postsType | boolean> {
         const newPost = {
-            id: Date.now(),
+            id: new ObjectId,
             title: body.title,
             shortDescription: body.shortDescription,
             content: body.content,
@@ -29,22 +29,21 @@ export const postsService = {
         return result
     },
 
-    async updatePost(body: postsType, id: number): Promise<boolean> {
+    async updatePost(body: postsType, id: ObjectId): Promise<boolean> {
         return await postsRepository.updatePost(body, id)
     },
 
-    async deletePost(id: number): Promise<boolean> {
+    async deletePost(id: ObjectId): Promise<boolean> {
         return await postsRepository.deletePost(id)
     },
 
-    async getPostByBloggerId(bloggerId: number, query: paginateType): Promise<paginateRes> {
+    async getPostByBloggerId(bloggerId: ObjectId, query: paginateType): Promise<paginateRes> {
         return await postsRepository.getPostByBloggerId(bloggerId, query)
     },
 ///comment
-    async createComment(postId: number, content: string, user: UserType): Promise<CommentType | boolean> {
-        console.log(user)
+    async createComment(postId: ObjectId, content: string, user: UserType): Promise<CommentType | boolean> {
         const newComment = {
-            id: Date.parse(new Date().toString()),
+            id: new ObjectId(),
             content,
             postId,
             userId: user.id,
@@ -65,7 +64,7 @@ export const postsService = {
 
     },
 
-    async getCommentByPostId(postId: number, query: paginateType): Promise<paginateRes> {
+    async getCommentByPostId(postId: ObjectId, query: paginateType): Promise<paginateRes> {
         return await postsRepository.getCommentByPostId(postId, query)
     }
 }

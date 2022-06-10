@@ -1,10 +1,11 @@
 import {commentsRepository} from "../middlewares/comments-repository";
 import {CommentType} from "../repositories/types";
+import {ObjectId} from "mongodb";
 
 
 export const commentsService = {
 
-    async getCommentById(id:number):Promise<CommentType | null>{
+    async getCommentById(id:ObjectId):Promise<CommentType | null>{
         const comment = await commentsRepository.getCommentById(id)
         if(comment){
             return {
@@ -18,10 +19,10 @@ export const commentsService = {
         return null
     },
 
-    async updateComment(id: number,content:string):Promise<boolean> {
+    async updateComment(id: ObjectId,content:string):Promise<boolean> {
         return await commentsRepository.updateComment(id,content)
     },
-    async deleteComment(id: number):Promise<boolean> {
+    async deleteComment(id: ObjectId):Promise<boolean> {
         return await commentsRepository.deleteComment(id)
 
     }

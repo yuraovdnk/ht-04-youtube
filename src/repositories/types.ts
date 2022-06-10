@@ -1,33 +1,33 @@
 import {ObjectId, WithId} from "mongodb";
 
 export type bloggerType = {
-    id: number
+    id: ObjectId
     name: string
     youtubeUrl: string
 }
 export type postsType = {
-    id: number
+    id: ObjectId
     title: string
     shortDescription: string
     content:string
-    bloggerId:number
+    bloggerId:ObjectId
 }
 export type UserType = {
-    id:number
+    id:ObjectId
     login:string,
     passwordHash:string,
     passwordSalt:string,
     createdAt:Date
 }
 export type UserTypeRes = {
-    id:number,
+    id:ObjectId,
     login:string
 }
 export type CommentType = {
-    id:number,
+    id:ObjectId,
     content:string,
-    userId:number,
-    postId?:number,
+    userId:ObjectId,
+    postId?:ObjectId,
     userLogin?:string,
     addedAt:Date
 }

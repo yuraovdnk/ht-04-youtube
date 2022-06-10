@@ -21,10 +21,10 @@ export const usersRepository = {
     async findByLogin(login:string):Promise<UserType | null>{
         return await usersCollection.findOne({login})
     },
-    async findById(id: number):Promise<UserType | null>{
+    async findById(id: ObjectId):Promise<UserType | null>{
         return await usersCollection.findOne({id})
     },
-    async deleteUser(id:number):Promise<boolean>{
+    async deleteUser(id:ObjectId):Promise<boolean>{
         const res = await usersCollection.deleteOne({id})
         return res.acknowledged
     }

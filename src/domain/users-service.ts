@@ -15,16 +15,16 @@ export const usersService = {
         const passwordSalt = await bcrypt.genSalt(10)
         const passwordHash = await this.generateHash(password,passwordSalt)
         const newUser = {
-            id: Date.now(),
+            id:new ObjectId(),
             login,
             passwordSalt,
             passwordHash,
             createdAt: new Date()
         }
-        const user = await usersRepository.createUser(newUser)
+        const user = await usersRepository.createUser({...newUser})
         if(user){
             return {
-                id:newUser.id,
+                id: newUser.id,
                 login: newUser.login
             }
         }
@@ -40,7 +40,7 @@ export const usersService = {
         return hash
     },
 
-    async deleteUser(id: number):Promise<boolean>{
+    async deleteUser(id: ObjectId):Promise<boolean>{
         return await usersRepository.deleteUser(id)
     },
 
@@ -56,7 +56,7 @@ export const usersService = {
        return candidate
 
     },
-    async getUserById(id:number):Promise<UserType | null>{
+    async getUserById(id:ObjectId):Promise<UserType | null>{
         return usersRepository.findById(id)
     }
 

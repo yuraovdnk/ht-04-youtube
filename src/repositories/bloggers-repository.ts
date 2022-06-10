@@ -11,15 +11,17 @@ export const bloggersRepository = {
         return await pagination(query, filter, bloggerCollection)
     },
 
-    async getBloggerById(id: number): Promise<bloggerType | null> {
+    async getBloggerById(id: ObjectId): Promise<bloggerType | null> {
         return bloggerCollection.findOne({id},{projection:{_id:false}})
     },
+
     async createBlogger(body: bloggerType): Promise<bloggerType> {
         await bloggerCollection.insertOne(body)
         return body
     },
-    async updateBlogger(id: number, body: bloggerType): Promise<boolean> {
-        const result = await bloggerCollection.updateOne({id: id}, {
+
+    async updateBlogger(id: ObjectId, body: bloggerType): Promise<boolean> {
+        const result = await bloggerCollection.updateOne({id}, {
             $set: {
                 name: body.name,
                 youtubeUrl: body.youtubeUrl
@@ -27,8 +29,9 @@ export const bloggersRepository = {
         })
         return result.matchedCount === 1
     },
-    async deleteBlogger(id: number): Promise<boolean> {
-        const result = await bloggerCollection.deleteOne({id: id})
+
+    async deleteBlogger(id: ObjectId): Promise<boolean> {
+        const result = await bloggerCollection.deleteOne({id})
         return result.deletedCount === 1
     }
 }
