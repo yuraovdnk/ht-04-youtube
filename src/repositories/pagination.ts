@@ -24,9 +24,8 @@ export async function pagination (query:paginateType, filter:object, collection:
 
     let skip = pageSize * (pageNumber - 1)
 
-    let totalCount = await collection.countDocuments()
-
     const items =  await collection.find(filter,optionObj).skip(skip).limit(pageSize).toArray()
+    let totalCount = items.length
     let obj = {
         pagesCount: Math.ceil(totalCount / pageSize),
         page: pageNumber,

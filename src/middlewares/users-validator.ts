@@ -6,7 +6,7 @@ export const loginValidator = body('login')
     .exists().withMessage('The Login field is required.')
     .isString().withMessage('The Login field must be string')
     .notEmpty().withMessage("Login must be not empty")
-    .isLength({min:3,max:30}).withMessage(`The field Login must be a string of \'30\'.`)
+    .isLength({min:3,max:10}).withMessage(`The field Login must be a string of \'30\'.`)
 
 export const passwordValidator = body('login')
     .exists().withMessage('The password field is required.')

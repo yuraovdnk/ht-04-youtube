@@ -8,7 +8,6 @@ export const usersRepository = {
     async createUser(newUser: UserType): Promise<boolean> {
         const result = await usersCollection.insertOne(newUser)
         return result.acknowledged
-
     },
     async getAllUsers(query: paginateType):Promise<paginateRes>{
         const filter = {}

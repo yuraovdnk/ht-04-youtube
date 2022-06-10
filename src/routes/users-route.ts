@@ -28,7 +28,7 @@ usersRoute.get('/', async (req: Request, res: Response) => {
 usersRoute.delete('/:id',basicAuth,idValidator,async (req: Request, res: Response)=>{
    const isDeleted = await usersService.deleteUser(new ObjectId(req.params.id))
     if(isDeleted){
-        return res.send(200)
+        return res.send(204)
     }
     res.send(404)
 })

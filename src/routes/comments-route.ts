@@ -28,7 +28,7 @@ commentsRoute.put('/:id', bearerAuth,idValidator, async (req: Request, res: Resp
     }
     const isUpdated = await commentsService.updateComment(new ObjectId(req.params.id), req.body.content);
     if (isUpdated) {
-        return res.send(200)
+        return res.send(204)
     }
 })
 
